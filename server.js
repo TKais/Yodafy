@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var unirest = require('unirest');
+var application = require('./app.js');
 
 module.exports = {
 
@@ -12,16 +13,22 @@ module.exports = {
 
       console.log('Yodafy listening at http://%s:%s', host, port);
     });
+    getSentence();
   },
 
-  callAPI: function(){
-    unirest.get("https://yoda.p.mashape.com/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait.")
+  encodedSentence: function(sentence){
+    var encodeSentence = encodeURIComponent(sentence);
+    this.callAPI(encodeSentence);
+  },
+
+  callAPI: function(encodeSentence){ 
+    unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + encodeSentence)
       .header("X-Mashape-Key", "")
       .header("Accept", "text/plain")
       .end(function (result) {
         console.log(result.status, result.headers, result.body);
         var newBody = result.body;
-        doSomething(newBody);
+        //pass newBody back to function in app.js to append it to DOM
       })
   }
 }
