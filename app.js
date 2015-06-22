@@ -1,14 +1,35 @@
 var server = require('./server.js');
 
-module.exports = {
 
-  getSentence: function(){
-    var sentence = "Yo it's Tiff and I'm talkin' like Yoda";
-    server.encodedSentence(sentence);
-  }
+function getSentence(){
+  var sentence = document.getElementById('Yodafy').value;
+  encodedSentence(sentence);
+}
+
+function encodedSentence(sentence){
+  var encodeSentence = encodeURIComponent(sentence);
+  callAPI(encodeSentence);
+}
+
+function callAPI(encodeSentence){ 
+  unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + encodeSentence)
+    .header("X-Mashape-Key", "")
+    .header("Accept", "text/plain")
+    .end(function (result) {
+      if(result.status !== 200){
+        console.log("The status code from the API is: " + result.status);
+        return console.log("Something went wrong! Try again later");
+      } else {
+      console.log(result.status, result.headers, result.body);
+      var newBody = result.body;
+      //pass newBody back to function in app.js to append it to DOM
+    }
+  })
 }
 
 
 
+
 server.startServer();
+
 
