@@ -1,9 +1,8 @@
 var server = require('./server.js');
 
 
-function getSentence(){
-  var sentence = document.getElementById('Yodafy').value;
-  encodedSentence(sentence);
+function getSentence(sentence){
+  //get it from UI
 }
 
 function encodedSentence(sentence){
@@ -23,13 +22,9 @@ function callAPI(encodeSentence){
       console.log(result.status, result.headers, result.body);
       var newBody = result.body;
       //pass newBody back to function in app.js to append it to DOM
-    }
-  })
-}
-
-
+      }
+    })
+  }
 
 
 server.startServer();
-
-

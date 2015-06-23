@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var unirest = require('unirest');
+var qs = require('querystring');
 
 module.exports = {
 
@@ -15,12 +16,18 @@ module.exports = {
   }
 }
 
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 })
 
-
-
-
-
-
+app.post('/', function(req, res){
+  var body = '';
+  req.on('data', function(data){
+    body += data;
+  });
+  req.on('end', function(){
+    var sentence = qs.parse(body);
+    console.log(sentence);
+  });
+})
