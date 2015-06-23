@@ -1,16 +1,14 @@
 var server = require('./server.js');
+var unirest = require('unirest');
 
-
-function getSentence(sentence){
-  //get it from UI
-}
-
-function encodedSentence(sentence){
+encodedSentence = function(sentence){
   var encodeSentence = encodeURIComponent(sentence);
+  console.log("WE MADE IT HERE " + encodeSentence);
   callAPI(encodeSentence);
 }
 
 function callAPI(encodeSentence){ 
+  console.log("INSIDE THE API");
   unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + encodeSentence)
     .header("X-Mashape-Key", "")
     .header("Accept", "text/plain")

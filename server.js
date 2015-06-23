@@ -27,7 +27,8 @@ app.post('/', function(req, res){
     body += data;
   });
   req.on('end', function(){
-    var sentence = qs.parse(body);
-    console.log(sentence);
+    var parseIt = qs.parse(body);
+    var sentence = parseIt.sentence;
+    encodedSentence(sentence);
   });
 })
