@@ -1,14 +1,14 @@
 var server = require('./server.js');
 var unirest = require('unirest');
+var jsdom = require("jsdom");
+var window = jsdom.jsdom().parentWindow;
 
 encodedSentence = function(sentence){
   var encodeSentence = encodeURIComponent(sentence);
-  console.log("WE MADE IT HERE " + encodeSentence);
   callAPI(encodeSentence);
 }
 
-function callAPI(encodeSentence){ 
-  console.log("INSIDE THE API");
+function callAPI(encodeSentence){
   unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + encodeSentence)
     .header("X-Mashape-Key", "")
     .header("Accept", "text/plain")
@@ -19,10 +19,19 @@ function callAPI(encodeSentence){
       } else {
       console.log(result.status, result.headers, result.body);
       var newBody = result.body;
-      //pass newBody back to function in app.js to append it to DOM
+      appendToDom(newBody);
       }
     })
   }
+
+function appendToDom(newBody){
+  console.log("IN THE DOM=====" + newBody);
+  jsdom.jQueryify(window, "http://localhost:8080/", function () {
+    var $ = window.$;
+    $("body").("<div id='Yodafied'>" + newBody + "</div>");
+    console.log($('#Yodafied').html());
+  });
+}
 
 
 server.startServer();

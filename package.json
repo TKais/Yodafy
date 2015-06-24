@@ -1,0 +1,9 @@
+{
+  "name": "Yodafy",
+  "description": "Takes sentences and translates them into Yoda-speak",
+  "version": "0.0.1",
+  "dependencies": {
+    "jsdom": ">= 0.1.23 < 4.0.0"
+  },
+  "private": "true"
+}
