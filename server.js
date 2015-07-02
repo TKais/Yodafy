@@ -18,8 +18,13 @@ module.exports = {
 }
 
 
+
+app.set("views", __dirname + "/views");
+app.set("view engine", "jade");
+
+
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.render("index");
 })
 
 app.post('/', function(req, res){
@@ -30,6 +35,7 @@ app.post('/', function(req, res){
   req.on('end', function(){
     var parseIt = qs.parse(body);
     var sentence = parseIt.sentence;
-    encodedSentence(sentence);
+    // encodedSentence(sentence);
   });
+  // res.redirect("yodafied");
 })

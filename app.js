@@ -1,7 +1,5 @@
 var server = require('./server.js');
 var unirest = require('unirest');
-var jsdom = require("jsdom");
-var window = jsdom.jsdom().parentWindow;
 
 encodedSentence = function(sentence){
   var encodeSentence = encodeURIComponent(sentence);
@@ -19,19 +17,10 @@ function callAPI(encodeSentence){
       } else {
       console.log(result.status, result.headers, result.body);
       var newBody = result.body;
-      appendToDom(newBody);
+      // pass result here
       }
     })
   }
-
-function appendToDom(newBody){
-  console.log("IN THE DOM=====" + newBody);
-  jsdom.jQueryify(window, "http://localhost:8080/", function () {
-    var $ = window.$;
-    $("body").("<div id='Yodafied'>" + newBody + "</div>");
-    console.log($('#Yodafied').html());
-  });
-}
 
 
 server.startServer();
