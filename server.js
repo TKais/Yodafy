@@ -20,7 +20,9 @@ function startServer(){
 
 
 app.set("views", __dirname + "/views");
+app.set("/public", __dirname + "/public");
 app.set("view engine", "jade");
+
 
 
 app.get('/', function(req, res){
