@@ -41,7 +41,7 @@ app.post('/', function(req, res){
     var encodeSentence = encodeURIComponent(sentence);
 
     unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + encodeSentence)
-    .header("X-Mashape-Key", "qMMm5nho3JmshiVyLL7tcmb2T6dap1DHJxgjsnzJcn3gTKYwNM")
+    .header("X-Mashape-Key", "")
     .header("Accept", "text/plain")
     .end(function (result) {
       if(result.status !== 200){
